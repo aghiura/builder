@@ -26,7 +26,6 @@
     <property name="jslintconsole.js" location="${builddir}/lib/jslint/jslint-console.js" />
     <property name="jslintsrc.js" location="${builddir}/lib/jslint/fulljslint.js" />
     <property name="yuicompressor.jar" location="${builddir}/lib/yuicompressor/ant-yuicompressor-2.4.5pre2.jar" />
-    <property name="yuitest-coverage.jar" location="${builddir}/lib/yuitest-coverage/yuitest-coverage.jar" />
     <property name="yrb2jsonconsole.js" location="${builddir}/lib/yrb2json/yrb2json-console.js" />
     <property name="yrb2jsonsrc.js" location="${builddir}/lib/yrb2json/yrb2json.js" />
 
@@ -54,6 +53,7 @@
     <property name="global.build.base" location="${srcdir}/build" />
     <property name="global.build.component" location="${global.build.base}/${component}" />
     <property name="global.build.component.assets" location="${global.build.component}/assets" />
+	<property name="global.build.templatesdir" location="${global.build.component}/templates" />
 
 	<!-- Component Properties -->
     <property name="component.module" value="${component}" />
@@ -62,6 +62,7 @@
     <property name="component.cssfiles.base" location="${component.basedir}/css" />
 
 	<property name="component.lang.base" location="${component.basedir}/lang" />
+	<property name="component.templatesdir" location="${component.basedir}/templates" />
 	
     <property name="component.assets.flatten" value="true" />
     <property name="component.assets.base" location="${component.basedir}/assets" />

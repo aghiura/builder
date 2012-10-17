@@ -18,34 +18,23 @@ JSLINT = require("./fulljslint").JSLINT;
         undef: true,
         newcap: false,
         predef:["YUI", "window", "YUI_config", "YAHOO", "YAHOO_config", "Event",
-                "opera", "exports", "document", "navigator", "console", "self", "require",
-                "_yuitest_coverline",
-                "_yuitest_coverfunc",
-                "_yuitest_coverage",
-                "module", "process", "__dirname", "__filename"]
+                "opera", "exports", "document", "navigator", "console", "self"]
     };
 
-    function test(js, file) {
+    function test(js) {
         var body = "", code = 200;
 
         var success = JSLINT(js, OPTS);
         if (success) {
-            return {
-                "content": '\t[JSLINT] [OK] ' + file,
-                code: code
-            };
+            return "OK";
         } else {
-            if (JSLINT.errors.length) {
-                body += '[JSLINT] ' + file + '\n';
-                body += '----------------------------------------------------------\n';
-                for (var i=0; i < JSLINT.errors.length; ++i) {
-                    var e = JSLINT.errors[i];
-                    if (e) {
-                        body += ("\t" + e.line + ", " + e.character + ": " + e.reason + "\n\t" + clean(e.evidence) + "\n");
-                    }
+            for (var i=0; i < JSLINT.errors.length; ++i) {
+                var e = JSLINT.errors[i];
+                if (e) {
+                    body += ("\t" + e.line + ", " + e.character + ": " + e.reason + "\n\t" + clean(e.evidence) + "\n");
                 }
-                body += '----------------------------------------------------------\n';
             }
+            body += "\n";
 
             // Last item is null if JSLint hit a fatal error
             if (JSLINT.errors && JSLINT.errors[JSLINT.errors.length-1] === null) {
@@ -99,7 +88,7 @@ JSLINT = require("./fulljslint").JSLINT;
                 var results = [];
                 files.forEach(function (file) {
                     fs.readFile(file, function (err, data) {
-                        var diagnosis = test(data.toString("utf8"), file);
+                        var diagnosis = test(data.toString("utf8"));
                         results.push(diagnosis.content);
 
                         code = (
@@ -117,7 +106,7 @@ JSLINT = require("./fulljslint").JSLINT;
         });
     }).listen(PORT, "127.0.0.1");
 
-    console.log("Server started on port " + PORT);
+    require("sys").puts("Server started on port " + PORT);
 
     (function () {
         var reap;
