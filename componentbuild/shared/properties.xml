@@ -81,7 +81,13 @@
             <available file="${component.assets.base}/skins" type="dir" />
         </and>
     </condition>
-
+	
+	<condition property="component.templates.exist">
+		<and>
+			<available file="${component.templatesdir}" type="dir" />
+		</and>
+	</condition>
+	
     <!-- component is part of a rollup build, so rollup skins to parent -->
     <condition property="rollupskins">
         <and>
