@@ -110,7 +110,7 @@
         </copy>
     </target>
 	
-	<target name="deploytemplates" description="Copy view templates from component.templatesdir">
+	<target name="deploytemplates" description="Copy view templates from component.templatesdir" if="templates.exist">
 		<copy todir="${global.build.templatesdir}" overwrite="true" verbose="true">
 			<fileset dir="${component.templatesdir}" />
 		</copy>
