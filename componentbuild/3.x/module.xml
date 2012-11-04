@@ -9,6 +9,27 @@
     <target name="buildskins" depends="-buildskins, -rollupcss" />
     <target name="buildlangs" depends="-buildlangs, -rolluplangs" />
 
+	<target name="concatenate">
+		<concatsource destfile="${component.builddir}/${component.basefilename}.js" sourcedir="${component.jsfiles.base}" sourcefiles="${component.jsfiles}" />
+	</target>
+			
+	<target name="minify" description="Create component-min.js from component.js">
+        <yuicompress src="${component.builddir}/${component.basefilename}.js" dest="${component.builddir}/${component.basefilename}-min.js" args="${yuicompressor.js.args.internal}" />
+    	<if>
+            <available file="${component.builddir}/lang" type="dir" />
+    	    <then>
+    	    	<for param="file">
+    	    	    <path>
+    	    	      <fileset dir="${component.builddir}/lang" includes="*.js"/>
+    	    	    </path>
+    	    	    <sequential>
+    	    	       <yuicompress src="@{file}" dest="@{file}" args="${yuicompressor.js.args.internal}" />
+    	    	    </sequential>
+    	    	</for>
+    	    </then>
+        </if>
+    </target>
+	
     <!-- CORE -->
     <target name="buildcore" depends="builddebug, -createcore, -loggerregex" description="Create component.js">
         <fixcrlf srcdir="${component.builddir}" includes="${component.basefilename}.js" eol="${buildfiles.eol}" />
