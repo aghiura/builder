@@ -70,7 +70,8 @@
     </target>
 
     <target name="clean" description="Clean Local Build Directory" unless="clean.skip">
-       <delete dir="${component.builddir}" />
+		<delete dir="${component.builddir}" />
+    	<delete dir="${component.langbuilddir}" />		
     </target>
 
     <target name="build" />

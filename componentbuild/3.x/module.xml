@@ -106,7 +106,7 @@
 
     <target name="-buildlangs" description="Create language packs in the local component build directory" if="component.langs.exist">
     	<mkdir dir="${component.builddir}/lang" />
-
+    	
         <for list="${component.lang}" param="lang" trim="true">
             <sequential>
             	<addlang dir="${component.lang.base}" module="${component}" lang="@{lang}" dest="${component.builddir}/lang" />
